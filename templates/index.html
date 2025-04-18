@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PROJECT NAME GENERATOR</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-context: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>PROJECT NAME GENERATOR</h1>
+
+    <form id="input-form">
+        <input type="text" id="pdesc" name="pdesc">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="gen-result"></div>
+
+    <script>
+        const form = document.getElementById("input-form")
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault()
+
+            const formData = new FormData(form)
+            const response = await fetch("/gen", {method: "POST", body: formData})
+
+            const data = await response.text()
+            const obj = JSON.parse(data)
+
+            document.getElementById("gen-result").innerText = "Project Name: " + obj.name;
+        })
+    </script>
+</body>
+
+</html>
